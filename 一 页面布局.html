@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>页面布局</title>
+    <style>
+        .left1 {
+            height: 80px;
+            float: left;
+            width: 300px;
+            background: red;
+        }
+
+        .right1 {
+            height: 80px;
+            float: right;
+            width: 300px;
+            background: black;
+        }
+
+        .center1 {
+            height: 80px;
+            background: pink;
+        }
+
+        .div2 {
+            margin-top: 50px;
+
+        }
+
+        .div2>div {
+            position: absolute;
+            height: 80px;
+        }
+
+        .left2 {
+            left: 0;
+            width: 300px;
+            background: gold;
+
+        }
+
+        .center2 {
+            left: 300px;
+            right: 300px;
+
+        }
+
+        .right2 {
+            right: 0;
+            width: 300px;
+            background: darkblue;
+        }
+
+        .div3 {
+            display: flex;
+            margin-top: 150px;
+        }
+
+        .left3 {
+            width: 300px;
+            background: red;
+        }
+
+        .center3 {
+            flex: 1;
+        }
+
+        .right3 {
+            width: 300px;
+            background: black;
+        }
+
+        .div4 {
+            width: 100%;
+            display: table;
+            margin-top: 50px;
+        }
+
+        .div4>div {
+            display: table-cell;
+        }
+
+        .left4 {
+            width: 300px;
+            background: red;
+        }
+
+        .center4 {
+            background: palevioletred;
+        }
+
+        .right4 {
+            width: 300px;
+            background: gold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1> 已知高度的div，左右个300像素，中间居中的方法 </h1>
+    <p> 每个方案 的优缺点
+        <p> 1. 浮动 兼容性好 / 清除浮动</p>
+        <p> 2. 绝对定位 快捷 / 所以的子元素也脱离文档流</p>
+        <p> 3. flex IE8不支持 /这个就是解决 浮动和定位的问题的</p>
+        <p> 4. table 布局 兼容性好 / </p>
+        <p> 5. 网格 </p>
+    </p>
+    <p> 把高度已知去点，那个可以用，</p>
+    <p> 考虑兼容性，业务中，那个最实用</p>
+    <section>
+        <article class="div1">
+            <div class="left1"> </div>
+            <div class="right1"> </div>
+            <div class="center1">
+                <p> 浮动定位 </p>
+                <p> 22222 </p>
+                <p> 浮动定位 </p>
+                <p> 浮动定位 </p>
+                <p> 浮动定位 </p>
+                <p> 浮动定位 </p>
+            </div>
+        </article>
+    </section>
+
+    <section>
+        <article class="div2">
+            <div class="left2"></div>
+            <div class="center2">
+                <p> 绝对定位 </p>
+                <p> 绝对定位 </p>
+                <p> 绝对定位 </p>
+                <p> 绝对定位 </p>
+                <p> 绝对定位 </p>
+                <p> 绝对定位 </p>
+                <p> 绝对定位 </p>
+            </div>
+            <div class="right2"></div>
+        </article>
+    </section>
+
+    <section>
+        <article class="div3">
+            <div class="left3"> 左侧</div>
+            <div class="center3">
+                <p>flex 布局</p>
+                <p>flex 布局</p>
+                <p>flex 布局</p>
+                <p>flex 布局</p>
+                <p>flex 布局</p>
+                <p>flex 布局</p>
+            </div>
+            <div class="right3"> 右侧 </div>
+        </article>
+    </section>
+
+    <section>
+        <article class="div4">
+            <div class="left4"> </div>
+            <div class="center4">
+                <p>表格布局</p>
+                <p>表格布局</p>
+                <p>表格布局</p>
+                <p>表格布局</p>
+                <p>表格布局</p>
+                <p>表格布局</p>
+                <p>表格布局</p>
+            </div>
+            <div class="right4"> </div>
+        </article>
+    </section>
+
+    <section>
+        <style>
+            .div5 {
+                margin-top: 50px;
+                display: grid;
+                width: 100%;
+                grid-auto-rows: 100px;
+                grid-template-columns: 300px auto 300px;
+            }
+
+            .left5 {
+                background: rebeccapurple;
+            }
+
+            .right5 {
+                background: black;
+            }
+        </style>
+        <article class="div5">
+            <div class="left5"></div>
+            <div class="cnter5">
+                <p> 网格 布局 </p>
+                <p> 网格 布局 </p>
+                <p> 网格 布局 </p>
+                <p> 网格 布局 </p>
+                <p> 网格 布局 </p>
+                <p> 网格 布局 </p>
+                <p> 网格 布局 </p>
+            </div>
+            <div class="right5"></div>
+        </article>
+    </section>
+</body>
+
+</html>

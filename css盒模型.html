@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> css 盒模型 </title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div>
+        <ul>
+            <li> 标准模型 + IE 模型 </li>
+            <li> 标准模型 盒 ie模型的区别 </li>
+            <div>
+                <p> 标准模型 的宽和高就是指 content 的宽高，没有 border 和 padding </p>
+                <p> IE 模型 宽高有 border 和 padding </p>
+            </div>
+            <li> css 如何设置这两个 模型 </li>
+            <div>
+                css3 的属性：
+                <p> 标准模型： box-siZing: content-box; </p>
+                <p> IE模型： box-siZing: border-box; </p>
+            </div>
+            <li>
+                js 如何设置获取盒模型的的对象宽和高
+                <div>
+                    <p> dom.style.width/heigth // 只能取到内连样式的宽高 </p>
+                    <p> dom.currentStyle.width/heigth // 只有 ie 支持</p>
+                    <p> window.getComputedStyle(dom).width/heigth 支持比较好 </p>
+                    <p> dom.getBoundingClientRect().width/heigth // 获取元素的真实宽高 </p>
+                </div>
+            </li>
+            <li> 根据盒模型解析边距 重叠 </li>
+            <li> BFC ( 边距重叠解决方案 )
+                <div>
+                    <p> <a href="http://www.cnblogs.com/chen-cong/p/7862832.html"> BFC</a> </p>
+                    <p> BFC 的概念：格式化上下文，是Web页面中盒模型布局的CSS渲染模式，指一个独立的渲染区域或者说是一个隔离的独立容器。 </p>
+                    <p> BFC 的特性
+                        <p> 1. 内部的 div 会垂直方向一个接一个的放置</p>
+                        <p> 2. 垂直方向上的距离都是有 Margin 决定的 </p>
+                        <p> 3. BFC 的区域不会与 float 的元素区域重叠 </p>
+                        <p> 4. 计算 BFC 高度时，浮动元素也参与计算 </p>
+                        <p> 5. BFC 就是一个独立容器，容器内的子元素不会影像外边面元素 /p>
+                        </p>
+                        <p> 如何创建BFC
+                            <p> 1. 浮动元素，float 除 none 以外的值</p>
+                            <p> 2. 定位元素，position（absolute，fixed）</p>
+                            <p> 3. display 为以下其中之一的值 inline-block，table-cell，table-caption </p>
+                            <p> 4.overflow 除了 visible 以外的值（hidden，auto，scroll </p>
+                        </p>
+                        <p> BFC 的使用场景 </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!--  11111 -->
+    <div>
+        <section class="section1">
+            <style>
+                .section1 {
+                    /*  创建 bfc 环境 */
+                    overflow: hidden;
+                    background: red;
+                }
+
+                .article1 {
+                    height: 100px;
+                    margin-top: 10px;
+                    background: black;
+                }
+            </style>
+            <article class="article1">
+            </article>
+        </section>
+        <!--  bfc的内部的Box会在垂直方向上一个接一个的放置  -->
+        <section class="section2">
+            <style>
+                .section2 {
+                    overflow: hidden;
+                }
+
+                .section2>div {
+                    height: 50px;
+                }
+
+                .div21 {
+                    width: 300px;
+                    background: red;
+                }
+
+                .div22 {
+                    width: 200px;
+                    background: black;
+                }
+
+                .div23 {
+                    width: 100px;
+                    background: palegreen;
+                }
+            </style>
+            <div class="div21"> </div>
+            <div class="div22"></div>
+            <div class="div23"></div>
+        </section>
+        <h2> 垂直方向的距离由 margin决定</h2>
+        <p>两个兄弟盒子之间的垂直距离是由他们的外边距所决定的，但不是他们的两个外边距之和，而是以较大的为准</p>
+        <!--  垂直方向的距离由 margin决定 -->
+        <section class="section3">
+            <style>
+                .section3 {
+                    overflow: hidden;
+                    width: 200px;
+                    height: 800px;
+                    background: red;
+                }
+
+                .div31 {
+                    width: 200px;
+                    height: 100px;
+                    margin: 100px 0;
+                    background: black;
+                }
+
+                .div32 {
+                    width: 200px;
+                    height: 100px;
+                    margin: 200px 0;
+                    background: peru;
+                }
+
+                /*  让  div32 处在一个新的 BFC 中 */
+                .div3 {
+                    overflow: hidden;
+                }
+            </style>
+            <div class="div31"> </div>
+            <div class="div3">
+                <div class="div32"> </div>
+            </div>
+        </section>
+
+        <h2> 不被浮动元素覆盖</h2>
+        <!-- 不被浮动元素覆盖  -->
+        <section>
+            <style>
+                .left4 {
+                    float: left;
+                    width: 200px;
+                    height: 200px;
+                    background: red;
+                    margin-right: 10px;
+                }
+
+                .right4 {
+                    overflow: hidden;
+                    height: 200px;
+                    background: plum;
+                }
+            </style>
+            <div class="left4"> </div>
+            <div class="right4"> </div>
+        </section>
+
+        <h2>可以用来防止字体环绕：</h2>
+        <!--可以用来防止字体环绕：  -->
+        <section>
+            <style>
+                .left5 {
+                    float: left;
+                    height: 50px;
+                    width: 50px;
+                    background: red;
+                }
+
+                .right5 {
+                    /* f添加BFC 防止字体环绕 */
+                    overflow: hidden;
+                }
+            </style>
+            <div class="left5"></div>
+            <p class="right5">
+                你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好
+                你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好
+                你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好
+                你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好
+                你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好
+            </p>
+        </section>
+        <h2> BFC 里面的浮动计算高度 ，因为 overflow:hidden清除浮动 </h2>
+        <h2> 清除 浮动的方法 </h2>
+        <ul>
+            <li> 添加额外的标签 <div style="clear:both;"></div>
+                <p> 优点： 通俗易懂，容易掌握 </p>
+                <p> 缺点： 会添加多少无意义的空标签，有违结构与表现的分离 </p>
+            </li>
+            <li>
+                父元素设置 overflow：hidden
+                <p> 优点： 不存在结构和语义化问题，代码量极少 </p>
+                <p> 缺点： </p>
+            </li>
+            <li> 父元素也设置浮动
+                <p> 优点：不存在结构和语义化问题，代码量极少 </p>
+                <p> 缺点：使父级相邻的元素布局会收到影像，不推荐使用</p>
+            </li>
+            <li> 使用 :after 元素
+                <p>
+                    .clearfix:after{
+                    content:'.';
+                    height: 0;
+                    clear: both;
+                    display: block;
+                    }
+                </p>
+
+            </li>
+        </ul>
+    </div>
+
+</body>
+
+</html>
