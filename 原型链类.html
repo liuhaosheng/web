@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> 原型链类 </title>
+</head>
+
+<body>
+    <div>
+        <h2> 创建对象的方法 </h2>
+    </div>
+    <div>
+        <h2> 原型，构造函数，实例，原型链 
+            <p> 只要是 对象 ，那么它就是 实例</p>
+        </h2>
+    </div>
+    <div>
+        <h2>
+            instanceof 的原理
+        </h2>
+        <p> 判断 实例对象的 _proto_ 属性和 构造函数的 prototype 的引用是不是一一个地址  </p>
+    </div>
+    <div>
+        <h2> new 运算符 </h2>
+    </div>
+</body>
+
+</html>
+<script>
+    // 创建对象的方法
+    // --- 1. 对象字面量方法 --- // 
+    var obj1 = {
+        name: "liu"
+    };
+    var obj2 = new Object({
+        name: 'liu '
+    });
+
+    // --- 2. 构造函数创建对象 --- // 
+    function Person(name, age,job) {
+        this.name = name;
+        this.age = age;
+        this.job = job;
+    }
+    //  原型 通过原型链找到原型，
+    Person.prototype.say = function(){
+        console.log("111-111");
+    }
+    var obj3 = new Person("liu","22","oo");
+    var obj5 = new Person("11","22","33");
+
+
+    // --- 3. object.create --- //
+    var n = {name:'liu'};
+    var obj4 = Object.create(n); 
+
+    // new 运算符 //
+    var new2 = function(func){
+        var o = Object.create(func.prototype);
+        var k = func.call(o);
+        if(typeof k === 'object'){
+            return k;
+        }else{
+            return o
+        }
+    }
+</script>
