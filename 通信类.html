@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> 通信类 </title>
+</head>
+<body>
+    <h1> --- 通信类 --- </h1>
+    <h2> 什么是同源策略及限制 
+        <p> 同源策略限制从一个源加载文档或者脚本如何与另一个源的资源进行互换。</p>
+    </h2>
+    <h2> 前后端如何通信 
+        <ul>
+            <li> Ajax :同源策略 </li>
+            <li> webSocket ：跨域 </li>
+            <li> CORS 同源和跨域 </li>
+        </ul>
+    </h2>
+    <h2> 如何创建 Ajax 
+        <p> 如何创建 Ajax 的初衷？   </p>
+        <ul>
+            <li> XMLHttprequest 对象的工作流程 </li>
+            <li> 兼容性处理 </li>
+            <li> 事件的触发条件 </li>
+            <li> 事件的 触发顺序 </li>
+        </ul>
+    </h2>
+    <h2> 跨域通信的几种方式 
+        <ul>
+            <li> jsonp </li>
+            <li> hash </li>
+            <li> postMessage </li>
+            <li> webSocket 三个事件 onopen / onmessage / onclose</li>
+            <li> CORS  fetch实现cors 通信 
+                <p> CORS原理只需要向响应头header中注入Access-Control-Allow-Origin，浏览器检测到header中的Access-Control-Allow-Origin，则就可以跨域操作了。</p>
+                <p> CORS请求分成两类：简单请求（simple request）和非简单请求（not-so-simple request）</p>
+            </li>
+        </ul>
+    </h2>
+</body>
+</html>
