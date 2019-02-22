@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--  预解析 DNS  强制打开 a标签的 dns 预解析 -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="dns-prefetch" href="//host_name_to_perfetch.com">
+    <title> 页面性能 </title>
+</head>
+
+<body>
+    <h1> 提升页面性能的方法？ </h1>
+    <ul>
+        <li> 资源压缩合并，减少 HTTP 请求</li>
+        <li> 非核心代码异步加载 -> 异步加载的方式 -> 异步加载的区别
+            <h3> 1. 动态脚本加载 </h3>
+            <h3> 2. defer: 是在 HTML 解析完成之后才会执行，如果多个，按照加载顺序执行。</h3>
+            <h3> 3. async : 是在加载完成之后立即执行， 如果多个，执行顺序和加载顺序无关。</h3>
+        </li>
+        <li> 利用浏览器缓存 -> 缓存分类 -> 缓存原理
+            <h2> 缓存分类 </h2>
+            <h3> 1. 强缓存 </h3>
+            <p> Expires : Thu,21 Jan 2017 23:39:07 GMT 服务端的绝对时间</p>
+                <p> Cache-Control ： max-age= 3600 客户端的相对时间 </p>
+            <h3> 2. 协商缓存 </h3>
+            <p> Last- Modified </p>
+            <p> If- Modified - Since </p>
+            <p> Etag </p>
+            <p> If -None - Match </p>
+        </li>
+        <li> 使用 CDN</li>
+        <li> 预解析 DNS </li>
+    </ul>
+</body>
+
+</html>
