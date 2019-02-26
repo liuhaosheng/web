@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> SPA 和 SSR </title>
+</head>
+<body>
+    <h2> SPA 单页面应用 </h2>
+    <ul>
+        优点
+        <li> 页面之间的切换很快 </li>
+        <li> 减少后端服务器的压力 </li>
+        <li> 后端只提供API </li>
+    </ul>
+    <ul>
+        缺点
+        <li> 首屏打开速度缓慢 </li>
+        <li> 不利于 SEO </li>
+    </ul>
+
+    <h2> 如何解决 SPA 首屏 加载速度慢的问题？</h2>
+    <ul>
+        <li> 将公用的 js 库通过 script 标签外部引入，减少 app.bundel 的大小 </li>
+        <li> 配置路由，页面和组件使用懒加载方式引入 </li>
+        <li> 加一个首屏 loading 图，提升用户体验度 </li>
+    </ul>
+
+    <h2> SSR 服务器端渲染 </h2>
+    <ul>
+        优点
+        <li> 响应时间快 </li>
+        <li> 有利于 SEO </li>
+    </ul>
+    <ul>
+        缺点
+        <li> 占用更多的内存和CPU </li>
+        <li> 一些常用的浏览器API 无法正常使用 如 window alert </li>
+        <li> 开发调试有些麻烦，对于SPA 一些组件的生命周期管理会变的复杂 </li>
+        <li> 某些因素导致 服务端渲染和 浏览器的结果不一样 </li>
+    </ul>
+</body>
+</html>
