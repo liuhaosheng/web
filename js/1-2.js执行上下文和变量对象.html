@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> js 深入执行上下文栈 和变量对象 </title>
+</head>
+
+<body>
+    <h2> 同一作用域下存在多个同名函数声明，后面的会替换前面的函数声明。 </h2>
+
+    <h2> 函数上下文：用活动对象(activation object, AO)来表示变量对象。</h2>
+    <p> 活动对象和变量对象的区别：</p>
+    <p> 1.变量对象VO 是规范上或者是 js 引擎实现的，并不能在js环境中直接访问。</p>
+    <p> 2.当进入一个执行上下文后，变量对象会被激活，叫活动对象AO 这时活动对象的属性才能被访问。</p>
+
+    <ul>
+        <li> 全局上下文的变量对象初始化是全局对象  </li>
+        <li> 函数上下文的变量初始指包括 Arguments（形参） 对象</li>
+        <li> 在进入执行上下文时会给变量对象添加形参，函数声明，变量声明等初始属性值 </li>
+        <li> 在代码执行阶段，会再次修改变量对象的属性值 </li>
+    </ul>
+</body>
+
+</html>
+<script>
+    // --- 变量提升
+    foo; // undefined
+    var foo = function () {
+        console.log("foo1")
+    }
+    foo(); // foo1，foo赋值
+    var foo = function () {
+        console.log('foo2');
+    }
+    foo(); // foo2，foo重新赋值
+
+    // --- 函数提升
+    foo(); // foo2
+    function foo() {
+        console.log('foo1');
+    }
+    foo(); // foo2
+    function foo() {
+        console.log('foo2');
+    }
+    foo(); // foo2
+
+    // --- 声明优先级 
+    foo(); // foo2
+    var foo = function () {
+        console.log('foo1');
+    }
+    foo(); // foo1，foo重新赋值
+    function foo() {
+        console.log('foo2');
+    }
+    foo(); // foo1
+
+    // --- 两个代码的执行上下栈不一样 
+    var scope = "global scope";
+
+    function checkscope() {
+        var scope = "local scope";
+
+        function f() {
+            return scope;
+        }
+        return f();
+    }
+    checkscope();
+    // checkscope -> f -> pop -> pop 
+    var scope = "global scope";
+
+    function checkscope() {
+        var scope = "local scope";
+
+        function f() {
+            return scope;
+        }
+        return f;
+    }
+    checkscope()();
+    // checkscope -> pop -> f -> pop
+
+    // --- 函数上下文 --- //
+    function foo(a) {
+        var b = 2;
+        function c() {}
+        var d = function () {};
+        b = 3;
+    }
+    foo(1);
+    // 没有运行时的 AO、
+    AO = {
+        arguments: {
+            0: 1,
+            length: 1
+        },
+        a: 1,
+        b: undefined,
+        // c: reference to function c() {},
+        d: undefined
+    }
+    // 运行时的 AO
+    AO = {
+        arguments: {
+            0: 1,
+            length: 1
+        },
+        a: 1,
+        b: 3,
+        // c: reference to function c() {},
+        // d: reference to FunctionExpression "d"
+    }
+</script>
