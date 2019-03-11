@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> js的 内存回收和 内存泄漏和解决方案 </title>
+</head>
+
+<body>
+    <h1> js的内存回收和内存泄漏 </h1>
+
+    <h2> 内存回收：js有自动垃圾回收机制，每隔一段时间就执行一次释放操作，找出不在使用的值，释放占有内存。</h2>
+    <p> 1.局部变量：局部作用域中，函数执行完，局部变量也没有存在的必要，所有垃圾收集器很容易作出判断并回收。</p>
+    <p> 2.全局变量：全局变量什么时候要自动释放很难判断，所以开发中避免使用全局变量。 </p>
+
+    <h2> 垃圾回收算法 本质：可达内存被标记，其余的被当垃圾回收 </h2>
+    <p> 1.引用计数 （不在使用 ）</p>
+    <p> 2.标记清除 （算法 ）</p>
+    <ul>
+        <li> 垃圾回收创建一个 roots 列表，roots 通常是代码中全局变量的引用。</li>
+        <li> 所有的 roots 被检查和标记为激活（不是垃圾）。所有的子对象也被递归的检查，从roots开始的对象如果是可达的，它就不被当垃圾。</li>
+        <li> 所有未被标记的内存被当垃圾，收集器现在可以释放内存，归还给操作系统 </li>
+    </ul>
+</body>
+
+</html>
+<script>
+    // --- 四种常见的 js 内存泄漏  --- //
+    // 1.意外的全局变量
+    function foo(arg) {
+        bar = "this is a hidden global variable"; // window.bar
+        this.variable = "potential accidental global"; // 这个 this 是window 对象
+    }
+    // 解决 使用 'use strict'严格模式
+
+    // 2.被遗忘的计时器或者回调函数
+    // var someResource = getData();
+    // setInterval(function () {
+    //     var node = document.getElementById('Node');
+    //     if (node) {
+    //         // 处理 node 和 someResource
+    //         node.innerHTML = JSON.stringify(someResource));
+    // }
+    // }, 1000);
+
+    // 3.脱离 DOM 的引用
+    // 把DOM 存成字典（JSON 键值对）或者数组，此时，同样的 DOM 元素存在两个引用：一个在 DOM 树中，另一个在字典中。那么将来需要把两个引用都清除。
+    var elements = {
+        button: document.getElementById('button'),
+        image: document.getElementById('image'),
+        text: document.getElementById('text')
+    };
+
+    function doStuff() {
+        image.src = 'http://some.url/image';
+        button.click();
+        console.log(text.innerHTML);
+        // 更多逻辑
+    }
+
+    function removeButton() {
+        // 按钮是 body 的后代元素
+        document.body.removeChild(document.getElementById('button'));
+        // 此时，仍旧存在一个全局的 #button 的引用
+        // elements 字典。button 元素仍旧在内存中，不能被 GC 回收。
+    }
+
+    // 4.闭包  关键：匿名函数可以访问父级作用域的变量。
+    var theThing = null;
+    var replaceThing = function () {
+        var originalThing = theThing;
+        var unused = function () {
+            if (originalThing)
+                console.log("hi");
+        };
+
+        theThing = {
+            longStr: new Array(1000000).join('*'),
+            someMethod: function () {
+                console.log(someMessage);
+            }
+        };
+        // 解决方法在 replaceThing 的最后添加 originalThing = null 。
+    };
+
+    setInterval(replaceThing, 1000);
+</script>
